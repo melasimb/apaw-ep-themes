@@ -7,8 +7,7 @@ branches:
 notifications:
   email:
     recipients:
-# <<<<<<<<<<<<<<<<<<<<<<<<<<<< NOTA!!! xxx se debe actualizar
-      - xxx@gmail.com
+      - j.bernal@upm.es
 script:
   #Test unitario y de integracion con cobertura
   - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
@@ -22,3 +21,4 @@ script:
 #    secure: $HEROKU
 #  on:
 #    branch: master
+
