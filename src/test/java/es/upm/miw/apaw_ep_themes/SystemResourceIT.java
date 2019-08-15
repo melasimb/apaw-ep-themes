@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api;
+package es.upm.miw.apaw_ep_themes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

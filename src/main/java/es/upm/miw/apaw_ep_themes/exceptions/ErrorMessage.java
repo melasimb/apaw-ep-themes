@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api.exceptions;
+package es.upm.miw.apaw_ep_themes.exceptions;
 
 public class ErrorMessage {
 
