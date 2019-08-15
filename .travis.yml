@@ -1,0 +1,24 @@
+language: java
+branches:
+  only:
+    - develop
+    - /^release-[0-999].[0-999]$/
+    - master
+notifications:
+  email:
+    recipients:
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<< NOTA!!! xxx se debe actualizar
+      - xxx@gmail.com
+script:
+  #Test unitario y de integracion con cobertura
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify
+  #SONARCLOUD. <<<<<<<<<<<<<<<<<<<<<<<<<<< NOTA!!! xxx se debe actualizar
+#  - mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=xxx -Dsonar.login=$SONAR
+
+#Deploy https://artefacto.herokuapp.com
+#deploy:
+#  provider: heroku
+#  api_key:
+#    secure: $HEROKU
+#  on:
+#    branch: master
