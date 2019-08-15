@@ -57,6 +57,9 @@ class SuggestionResourceIT {
                         .expectBodyList(SuggestionDto.class)
                         .returnResult().getResponseBody();
         assertTrue(list.size() > 0);
+        assertNotNull(list.get(0).getId());
+        assertNotNull(list.get(0).getNegative());
+        assertNotNull(list.get(0).getDescription());
     }
 
 
