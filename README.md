@@ -3,7 +3,8 @@
 > Este proyecto es un apoyo docente de la asignatura. Se quiere mostrar un ejemplo completo de un API-Rest para comprender la arquitectura y su proceso evolutivo
 
 ### Estado del código
-Travis-CI:name_badge: Sonarcloud:name_badge: Beter-Code-Hub:name_badge: Heroku:name_badge:
+[![Build Status](https://travis-ci.org/miw-upm/apaw-ep-themes.svg?branch=develop)](https://travis-ci.org/miw-upm/apaw-ep-themes)
+ Sonarcloud:name_badge: Beter-Code-Hub:name_badge: Heroku:name_badge:
 
 ### Tecnologías necesarias
 * Java
