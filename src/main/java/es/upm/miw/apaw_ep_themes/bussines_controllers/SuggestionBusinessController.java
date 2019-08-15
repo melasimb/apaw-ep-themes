@@ -1,13 +1,26 @@
 package es.upm.miw.apaw_ep_themes.bussines_controllers;
 
+import es.upm.miw.apaw_ep_themes.daos.SuggestionDao;
+import es.upm.miw.apaw_ep_themes.documents.Suggestion;
 import es.upm.miw.apaw_ep_themes.dtos.SuggestionDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class SuggestionBusinessController {
 
+    private SuggestionDao suggestionDao;
+
+    @Autowired
+    public SuggestionBusinessController(SuggestionDao suggestionDao) {
+        this.suggestionDao = suggestionDao;
+    }
+
+
     public SuggestionDto create(SuggestionDto suggestionDto) {
-        return null;
+        Suggestion suggestion = new Suggestion(suggestionDto.getNegative(), suggestionDto.getDescription());
+        this.suggestionDao.save(suggestion);
+        return new SuggestionDto(suggestion);
     }
 
 }
