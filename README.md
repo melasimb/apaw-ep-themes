@@ -4,7 +4,8 @@
 
 ### Estado del código
 [![Build Status](https://travis-ci.org/miw-upm/apaw-ep-themes.svg?branch=develop)](https://travis-ci.org/miw-upm/apaw-ep-themes)
- Sonarcloud:name_badge: Beter-Code-Hub:name_badge: Heroku:name_badge:
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-themes&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-themes)
+ Beter-Code-Hub:name_badge: Heroku:name_badge:
 
 ### Tecnologías necesarias
 * Java
