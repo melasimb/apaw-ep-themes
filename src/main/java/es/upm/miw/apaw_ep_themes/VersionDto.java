@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api;
+package es.upm.miw.apaw_ep_themes;
 
 public class VersionDto {
 
