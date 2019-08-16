@@ -39,4 +39,11 @@ public class UserResource {
         this.userBusinessController.patch(id, userPatchDto);
     }
 
+    @PutMapping(value = ID_ID + NICK)
+    public void updateNick(@PathVariable String id, @RequestBody UserBasicDto userBasicDto) {
+        userBasicDto.validateNick();
+        this.userBusinessController.updateNick(id, userBasicDto.getNick());
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.dtos;
 
 import es.upm.miw.apaw_ep_themes.documents.User;
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 
 public class UserBasicDto {
 
@@ -31,6 +32,12 @@ public class UserBasicDto {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public void validateNick() {
+        if (this.nick == null || this.nick.isEmpty()) {
+            throw new BadRequestException("Incomplete, lost nick");
+        }
     }
 
     @Override
