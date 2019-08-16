@@ -4,6 +4,7 @@ import es.upm.miw.apaw_ep_themes.daos.ThemeDao;
 import es.upm.miw.apaw_ep_themes.daos.UserDao;
 import es.upm.miw.apaw_ep_themes.documents.Theme;
 import es.upm.miw.apaw_ep_themes.documents.User;
+import es.upm.miw.apaw_ep_themes.documents.Vote;
 import es.upm.miw.apaw_ep_themes.dtos.ThemeBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.ThemeCreationDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
@@ -29,6 +30,12 @@ public class ThemeBusinessController {
         Theme theme = new Theme(themeCreationDto.getReference(), user);
         this.themeDao.save(theme);
         return new ThemeBasicDto(theme);
+    }
+
+    public void createVote(String id, Integer vote) {
+        Theme theme = this.themeDao.findById(id).orElseThrow(() -> new NotFoundException("Theme id: " + id));
+        theme.getVotes().add(new Vote(vote));
+        this.themeDao.save(theme);
     }
 
 }
