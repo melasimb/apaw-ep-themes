@@ -42,4 +42,33 @@ class UserResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void testReadUserNick() {
+        UserCreationDto userCreationDto =
+                new UserCreationDto("nick-4", "email", "country", "city", null);
+        String id = this.webTestClient
+                .post().uri(UserResource.USERS)
+                .body(BodyInserters.fromObject(userCreationDto))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(UserBasicDto.class)
+                .returnResult().getResponseBody().getId();
+        UserBasicDto userBasicDto = this.webTestClient
+                .get().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(UserBasicDto.class)
+                .returnResult().getResponseBody();
+        assertEquals(id, userBasicDto.getId());
+        assertEquals("nick-4", userBasicDto.getNick());
+    }
+
+    @Test
+    void testReadUserNickException() {
+        this.webTestClient
+                .get().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, "no")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
 }
