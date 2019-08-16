@@ -14,6 +14,10 @@ public class UserCreationDto {
 
     private String street;
 
+    public UserCreationDto(){
+        // Empty for framework
+    }
+
     public UserCreationDto(String nick, String email, String country, String city, String street) {
         this.nick = nick;
         this.email = email;
