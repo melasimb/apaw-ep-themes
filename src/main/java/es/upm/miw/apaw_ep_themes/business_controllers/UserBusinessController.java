@@ -5,6 +5,8 @@ import es.upm.miw.apaw_ep_themes.documents.Address;
 import es.upm.miw.apaw_ep_themes.documents.User;
 import es.upm.miw.apaw_ep_themes.dtos.UserBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.UserCreationDto;
+import es.upm.miw.apaw_ep_themes.dtos.UserPatchDto;
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +30,25 @@ public class UserBusinessController {
 
     public UserBasicDto readNick(String id) {
         return new UserBasicDto(
-                this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id))
-        );
+                this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id)));
+    }
+
+    public void patch(String id, UserPatchDto userPatchDto) {
+        User user = this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id));
+        switch (userPatchDto.getPath()) {
+            case "email":
+                user.setEmail(userPatchDto.getNewValue());
+                break;
+            case "country":
+                user.getAddress().setCountry(userPatchDto.getNewValue());
+                break;
+            case "city":
+                user.getAddress().setCity(userPatchDto.getNewValue());
+                break;
+            default:
+                throw new BadRequestException("UserPatchDto is invalid");
+        }
+        this.userDao.save(user);
     }
 
 

@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 import es.upm.miw.apaw_ep_themes.business_controllers.UserBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.UserBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.UserCreationDto;
+import es.upm.miw.apaw_ep_themes.dtos.UserPatchDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,12 @@ public class UserResource {
     @GetMapping(value = ID_ID + NICK)
     public UserBasicDto readNick(@PathVariable String id) {
         return this.userBusinessController.readNick(id);
+    }
+
+    @PatchMapping(value = ID_ID)
+    public void patch(@PathVariable String id, @RequestBody UserPatchDto userPatchDto) {
+        userPatchDto.validate();
+        this.userBusinessController.patch(id, userPatchDto);
     }
 
 }

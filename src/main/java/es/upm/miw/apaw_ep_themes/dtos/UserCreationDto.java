@@ -14,7 +14,7 @@ public class UserCreationDto {
 
     private String street;
 
-    public UserCreationDto(){
+    public UserCreationDto() {
         // Empty for framework
     }
 
