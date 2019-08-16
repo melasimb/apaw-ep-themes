@@ -12,6 +12,9 @@ import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class ThemeBusinessController {
 
@@ -45,8 +48,18 @@ public class ThemeBusinessController {
 
     public AverageDto processAverage(String id) {
         Theme theme = this.findThemeByIdAssured(id);
-        return new AverageDto(theme.getVotes().stream().mapToDouble(Vote::getValue).average().orElse(Double.NaN));
+        return new AverageDto(this.average(theme));
     }
 
+    private Double average(Theme theme) {
+        return theme.getVotes().stream().mapToDouble(Vote::getValue).average().orElse(Double.NaN);
+    }
+
+    public List<ThemeBasicDto> findByAverageGreaterThanEqual(Double value) {
+        return this.themeDao.findAll().stream()
+                .filter(theme -> this.average(theme) >= value)
+                .map(ThemeBasicDto::new)
+                .collect(Collectors.toList());
+    }
 
 }
