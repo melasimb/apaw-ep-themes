@@ -29,12 +29,15 @@ public class UserBusinessController {
     }
 
     public UserBasicDto readNick(String id) {
-        return new UserBasicDto(
-                this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id)));
+        return new UserBasicDto(this.findUserByIdAssured(id));
+    }
+
+    private User findUserByIdAssured(String id) {
+        return this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id));
     }
 
     public void patch(String id, UserPatchDto userPatchDto) {
-        User user = this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id));
+        User user = this.findUserByIdAssured(id);
         switch (userPatchDto.getPath()) {
             case "email":
                 user.setEmail(userPatchDto.getNewValue());
@@ -51,5 +54,10 @@ public class UserBusinessController {
         this.userDao.save(user);
     }
 
+    public void updateNick(String id, String nick) {
+        User user = this.findUserByIdAssured(id);
+        user.setNick(nick);
+        this.userDao.save(user);
+    }
 
 }
