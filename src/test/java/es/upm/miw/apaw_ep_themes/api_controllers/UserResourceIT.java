@@ -89,7 +89,7 @@ class UserResourceIT {
 
     @Test
     void testUserUpdate() {
-        String id = createUser("nick5").getId();
+        String id = createUser("nick-5").getId();
         this.webTestClient
                 .patch().uri(UserResource.USERS + UserResource.ID_ID, id)
                 .body(BodyInserters.fromObject(new UserPatchDto("email", "other@gmail.com")))
