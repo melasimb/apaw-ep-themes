@@ -34,12 +34,6 @@ public class UserBasicDto {
         this.nick = nick;
     }
 
-    public void validateNick() {
-        if (this.nick == null || this.nick.isEmpty()) {
-            throw new BadRequestException("Incomplete, lost nick");
-        }
-    }
-
     @Override
     public String toString() {
         return "UserBasicDto{" +
