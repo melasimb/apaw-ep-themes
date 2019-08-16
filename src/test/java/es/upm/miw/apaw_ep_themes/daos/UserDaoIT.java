@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @TestConfig
 class UserDaoIT {
@@ -21,6 +20,6 @@ class UserDaoIT {
         User user = new User("nick", "email@gmail.com", new Address("España", "Madrid", "Alan Turing"));
         this.userDao.save(user);
         User databaseUser = this.userDao.findById(user.getId()).orElseGet(Assertions::fail);
-        assertEquals("nick",databaseUser.getNick());
+        assertEquals("nick", databaseUser.getNick());
     }
 }
