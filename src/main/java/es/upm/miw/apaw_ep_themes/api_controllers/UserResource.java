@@ -1,6 +1,6 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
-import es.upm.miw.apaw_ep_themes.bussines_controllers.UserBusinessController;
+import es.upm.miw.apaw_ep_themes.business_controllers.UserBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.UserBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.UserCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;

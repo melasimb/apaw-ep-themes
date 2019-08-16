@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_themes.bussines_controllers;
+package es.upm.miw.apaw_ep_themes.business_controllers;
 
 import es.upm.miw.apaw_ep_themes.daos.SuggestionDao;
 import es.upm.miw.apaw_ep_themes.documents.Suggestion;

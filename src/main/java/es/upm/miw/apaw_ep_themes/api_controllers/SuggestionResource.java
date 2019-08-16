@@ -1,6 +1,6 @@
 package es.upm.miw.apaw_ep_themes.api_controllers;
 
-import es.upm.miw.apaw_ep_themes.bussines_controllers.SuggestionBusinessController;
+import es.upm.miw.apaw_ep_themes.business_controllers.SuggestionBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.SuggestionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
