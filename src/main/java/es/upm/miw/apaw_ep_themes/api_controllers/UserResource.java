@@ -4,10 +4,7 @@ import es.upm.miw.apaw_ep_themes.business_controllers.UserBusinessController;
 import es.upm.miw.apaw_ep_themes.dtos.UserBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.UserCreationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(UserResource.USERS)
@@ -28,6 +25,11 @@ public class UserResource {
     public UserBasicDto create(@RequestBody UserCreationDto userCreationDto) {
         userCreationDto.validate();
         return this.userBusinessController.create(userCreationDto);
+    }
+
+    @GetMapping(value = ID_ID + NICK)
+    public UserBasicDto readNick(@PathVariable String id) {
+        return this.userBusinessController.readNick(id);
     }
 
 }

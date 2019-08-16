@@ -5,6 +5,7 @@ import es.upm.miw.apaw_ep_themes.documents.Address;
 import es.upm.miw.apaw_ep_themes.documents.User;
 import es.upm.miw.apaw_ep_themes.dtos.UserBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.UserCreationDto;
+import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -24,5 +25,12 @@ public class UserBusinessController {
         this.userDao.save(user);
         return new UserBasicDto(user);
     }
+
+    public UserBasicDto readNick(String id) {
+        return new UserBasicDto(
+                this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id))
+        );
+    }
+
 
 }
