@@ -3,6 +3,7 @@ package es.upm.miw.apaw_ep_themes.api_controllers;
 import es.upm.miw.apaw_ep_themes.ApiTestConfig;
 import es.upm.miw.apaw_ep_themes.dtos.UserBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.UserCreationDto;
+import es.upm.miw.apaw_ep_themes.dtos.UserPatchDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,16 +20,20 @@ class UserResourceIT {
 
     @Test
     void testCreate() {
+        UserBasicDto userBasicDto = createUser("nick");
+        assertEquals("nick", userBasicDto.getNick());
+    }
+
+    UserBasicDto createUser(String nick) {
         UserCreationDto userCreationDto =
-                new UserCreationDto("nick", "email", "country", "city", null);
-        UserBasicDto userBasicDto = this.webTestClient
+                new UserCreationDto(nick, nick + "@gmail.com", "country", "city", null);
+        return this.webTestClient
                 .post().uri(UserResource.USERS)
                 .body(BodyInserters.fromObject(userCreationDto))
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(UserBasicDto.class)
                 .returnResult().getResponseBody();
-        assertEquals("nick", userBasicDto.getNick());
     }
 
     @Test
@@ -44,15 +49,7 @@ class UserResourceIT {
 
     @Test
     void testReadUserNick() {
-        UserCreationDto userCreationDto =
-                new UserCreationDto("nick-4", "email", "country", "city", null);
-        String id = this.webTestClient
-                .post().uri(UserResource.USERS)
-                .body(BodyInserters.fromObject(userCreationDto))
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(UserBasicDto.class)
-                .returnResult().getResponseBody().getId();
+        String id = createUser("nick-3").getId();
         UserBasicDto userBasicDto = this.webTestClient
                 .get().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, id)
                 .exchange()
@@ -60,7 +57,7 @@ class UserResourceIT {
                 .expectBody(UserBasicDto.class)
                 .returnResult().getResponseBody();
         assertEquals(id, userBasicDto.getId());
-        assertEquals("nick-4", userBasicDto.getNick());
+        assertEquals("nick-3", userBasicDto.getNick());
     }
 
     @Test
@@ -69,6 +66,35 @@ class UserResourceIT {
                 .get().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, "no")
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testUserUpdateUserPatchDtoException() {
+        String id = createUser("nick-4").getId();
+        this.webTestClient
+                .patch().uri(UserResource.USERS + UserResource.ID_ID, id)
+                .body(BodyInserters.fromObject(new UserPatchDto()))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testUserUpdateIdException() {
+        this.webTestClient
+                .patch().uri(UserResource.USERS + UserResource.ID_ID, "no")
+                .body(BodyInserters.fromObject(new UserPatchDto("email", "other")))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testUserUpdate() {
+        String id = createUser("nick5").getId();
+        this.webTestClient
+                .patch().uri(UserResource.USERS + UserResource.ID_ID, id)
+                .body(BodyInserters.fromObject(new UserPatchDto("email", "other@gmail.com")))
+                .exchange()
+                .expectStatus().isOk();
     }
 
 }
