@@ -5,6 +5,7 @@ import es.upm.miw.apaw_ep_themes.daos.UserDao;
 import es.upm.miw.apaw_ep_themes.documents.Theme;
 import es.upm.miw.apaw_ep_themes.documents.User;
 import es.upm.miw.apaw_ep_themes.documents.Vote;
+import es.upm.miw.apaw_ep_themes.dtos.AverageDto;
 import es.upm.miw.apaw_ep_themes.dtos.ThemeBasicDto;
 import es.upm.miw.apaw_ep_themes.dtos.ThemeCreationDto;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
@@ -33,9 +34,19 @@ public class ThemeBusinessController {
     }
 
     public void createVote(String id, Integer vote) {
-        Theme theme = this.themeDao.findById(id).orElseThrow(() -> new NotFoundException("Theme id: " + id));
+        Theme theme = this.findThemeByIdAssured(id);
         theme.getVotes().add(new Vote(vote));
         this.themeDao.save(theme);
     }
+
+    private Theme findThemeByIdAssured(String id) {
+        return this.themeDao.findById(id).orElseThrow(() -> new NotFoundException("Theme id: " + id));
+    }
+
+    public AverageDto processAverage(String id) {
+        Theme theme = this.findThemeByIdAssured(id);
+        return new AverageDto(theme.getVotes().stream().mapToDouble(Vote::getValue).average().orElse(Double.NaN));
+    }
+
 
 }

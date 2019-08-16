@@ -46,4 +46,5 @@ public class UserPatchDto {
                 ", newValue='" + newValue + '\'' +
                 '}';
     }
+
 }
