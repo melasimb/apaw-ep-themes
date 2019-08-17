@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api.exceptions;
+package es.upm.miw.apaw_ep_themes.exceptions;
 
 public class NotFoundException extends RuntimeException {
     private static final String DESCRIPTION = "Not Found Exception (404)";

@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api;
+package es.upm.miw.apaw_ep_themes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
