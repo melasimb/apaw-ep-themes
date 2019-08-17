@@ -35,4 +35,10 @@ public class UserResource {
         this.userBusinessController.updateNick(id, userBasicDto.getNick());
     }
 
+    @PatchMapping(value = ID_ID)
+    public void patch(@PathVariable String id, @RequestBody UserPatchDto userPatchDto) {
+        userPatchDto.validate();
+        this.userBusinessController.patch(id, userPatchDto);
+    }
+
 }

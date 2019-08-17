@@ -1,5 +1,6 @@
 package es.upm.miw.apaw_ep_themes.user_resource;
 
+import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
 import es.upm.miw.apaw_ep_themes.user_data.Address;
 import es.upm.miw.apaw_ep_themes.user_data.User;
@@ -35,6 +36,24 @@ public class UserBusinessController {
     public void updateNick(String id, String nick) {
         User user = this.findUserByIdAssured(id);
         user.setNick(nick);
+        this.userDao.save(user);
+    }
+
+    public void patch(String id, UserPatchDto userPatchDto) {
+        User user = this.findUserByIdAssured(id);
+        switch (userPatchDto.getPath()) {
+            case "email":
+                user.setEmail(userPatchDto.getNewValue());
+                break;
+            case "country":
+                user.getAddress().setCountry(userPatchDto.getNewValue());
+                break;
+            case "city":
+                user.getAddress().setCity(userPatchDto.getNewValue());
+                break;
+            default:
+                throw new BadRequestException("UserPatchDto is invalid");
+        }
         this.userDao.save(user);
     }
 
