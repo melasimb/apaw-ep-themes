@@ -65,4 +65,41 @@ class UserResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 
+    @Test
+    void testPutNick() {
+        String id = createUser("nick-6").getId();
+        UserBasicDto userBasicDto = new UserBasicDto();
+        userBasicDto.setNick("newNick");
+        this.webTestClient
+                .put().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, id)
+                .body(BodyInserters.fromObject(userBasicDto))
+                .exchange()
+                .expectStatus().isOk();
+        userBasicDto = this.webTestClient
+                .get().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, id)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(UserBasicDto.class)
+                .returnResult().getResponseBody();
+        assertEquals(id, userBasicDto.getId());
+        assertEquals("newNick", userBasicDto.getNick());
+    }
+
+    @Test
+    void testPutNickNotFoundException() {
+        String id = createUser("nick-7").getId();
+        this.webTestClient
+                .put().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, id)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testPutNickBadRequestException() {
+        this.webTestClient
+                .put().uri(UserResource.USERS + UserResource.ID_ID + UserResource.NICK, "no")
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
 }

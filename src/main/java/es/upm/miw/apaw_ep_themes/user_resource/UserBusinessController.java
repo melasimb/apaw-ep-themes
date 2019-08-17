@@ -29,5 +29,10 @@ public class UserBusinessController {
         return this.userDao.findById(id).orElseThrow(() -> new NotFoundException("User id: " + id));
     }
 
+    public void updateNick(String id, String nick) {
+        User user = this.findUserByIdAssured(id);
+        user.setNick(nick);
+        this.userDao.save(user);
+    }
 
 }

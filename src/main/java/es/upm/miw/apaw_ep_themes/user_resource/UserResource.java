@@ -29,4 +29,10 @@ public class UserResource {
         return this.userBusinessController.readNick(id);
     }
 
+    @PutMapping(value = ID_ID + NICK)
+    public void updateNick(@PathVariable String id, @RequestBody UserBasicDto userBasicDto) {
+        userBasicDto.validateNick();
+        this.userBusinessController.updateNick(id, userBasicDto.getNick());
+    }
+
 }
