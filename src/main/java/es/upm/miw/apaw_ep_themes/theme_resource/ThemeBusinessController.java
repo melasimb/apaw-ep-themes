@@ -27,4 +27,13 @@ public class ThemeBusinessController {
         return new ThemeBasicDto(theme);
     }
 
+    public void createVote(String id, Integer vote) {
+        Theme theme = this.findThemeByIdAssured(id);
+        theme.getVotes().add(new Vote(vote));
+        this.themeDao.save(theme);
+    }
+
+    private Theme findThemeByIdAssured(String id) {
+        return this.themeDao.findById(id).orElseThrow(() -> new NotFoundException("Theme id: " + id));
+    }
 }
