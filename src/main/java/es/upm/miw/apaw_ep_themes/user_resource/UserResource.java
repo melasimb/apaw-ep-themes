@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(UserResource.USERS)
 public class UserResource {
 
-    static final String USERS = "/users";
+    public static final String USERS = "/users";
     static final String ID_ID = "/{id}";
     static final String NICK = "/nick";
 

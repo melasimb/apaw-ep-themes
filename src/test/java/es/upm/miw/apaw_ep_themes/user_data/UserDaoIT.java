@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_themes.user_resource;
+package es.upm.miw.apaw_ep_themes.user_data;
 
 import es.upm.miw.apaw_ep_themes.TestConfig;
 import org.junit.jupiter.api.Assertions;
