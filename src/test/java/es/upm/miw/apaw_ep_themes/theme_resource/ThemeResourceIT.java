@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ApiTestConfig
 class ThemeResourceIT {
@@ -107,7 +109,52 @@ class ThemeResourceIT {
                 .expectBody(AverageDto.class)
                 .returnResult().getResponseBody().getAverage();
         assertEquals(3, average, 10e-5);
+    }
 
+    @Test
+    void testSearch() {
+        String themeId = this.createTheme("theme-3");
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, themeId)
+                .body(BodyInserters.fromObject(new VoteDto(9)))
+                .exchange()
+                .expectStatus().isOk();
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, themeId)
+                .body(BodyInserters.fromObject(new VoteDto(9)))
+                .exchange()
+                .expectStatus().isOk();
+        List<ThemeBasicDto> themes = this.webTestClient
+                .get().uri(uriBuilder ->
+                        uriBuilder.path(ThemeResource.THEMES + ThemeResource.SEARCH)
+                                .queryParam("q", "average:>=9")
+                                .build())
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(ThemeBasicDto.class)
+                .returnResult().getResponseBody();
+        assertFalse(themes.isEmpty());
+    }
+
+    @Test
+    void testAverageNoVotes() {
+        String themeId = this.createTheme("theme-4");
+        Double overage = this.webTestClient
+                .get().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.AVERAGE, themeId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(AverageDto.class)
+                .returnResult().getResponseBody().getAverage();
+        assertTrue(Double.isNaN(overage));
+    }
+
+    @Test
+    void testAverageNotFoundException() {
+        String themeId = this.createTheme("theme-5");
+        this.webTestClient
+                .get().uri(ThemeResource.THEMES + "/no" + ThemeResource.AVERAGE, themeId)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
     }
 
 }
