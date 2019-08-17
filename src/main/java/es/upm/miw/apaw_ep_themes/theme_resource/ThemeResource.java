@@ -10,6 +10,7 @@ public class ThemeResource {
     static final String THEMES = "/themes";
     static final String ID_ID = "/{id}";
     static final String VOTES = "/votes";
+    static final String AVERAGE = "/overage";
 
     private ThemeBusinessController themeBusinessController;
 
@@ -29,4 +30,10 @@ public class ThemeResource {
         voteDto.validate();
         this.themeBusinessController.createVote(id, voteDto.getVote());
     }
+
+    @GetMapping(value = ID_ID + AVERAGE)
+    public AverageDto readAverage(@PathVariable String id) {
+        return this.themeBusinessController.processAverage(id);
+    }
+
 }
