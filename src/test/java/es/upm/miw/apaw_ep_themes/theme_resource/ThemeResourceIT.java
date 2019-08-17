@@ -62,4 +62,42 @@ class ThemeResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void testCreateVotesThemeIdException() {
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, "n0")
+                .body(BodyInserters.fromObject(new VoteDto(2)))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testCreateVotesVoteException() {
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, "n0")
+                .body(BodyInserters.fromObject(new VoteDto()))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testCreateVotes() {
+        String themeId = this.createTheme("theme-2");
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, themeId)
+                .body(BodyInserters.fromObject(new VoteDto(2)))
+                .exchange()
+                .expectStatus().isOk();
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, themeId)
+                .body(BodyInserters.fromObject(new VoteDto(3)))
+                .exchange()
+                .expectStatus().isOk();
+        this.webTestClient
+                .post().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.VOTES, themeId)
+                .body(BodyInserters.fromObject(new VoteDto(4)))
+                .exchange()
+                .expectStatus().isOk();
+    }
+
 }
