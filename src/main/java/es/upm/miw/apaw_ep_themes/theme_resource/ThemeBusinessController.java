@@ -36,4 +36,14 @@ public class ThemeBusinessController {
     private Theme findThemeByIdAssured(String id) {
         return this.themeDao.findById(id).orElseThrow(() -> new NotFoundException("Theme id: " + id));
     }
+
+    public AverageDto processAverage(String id) {
+        Theme theme = this.findThemeByIdAssured(id);
+        return new AverageDto(this.average(theme));
+    }
+
+    private Double average(Theme theme) {
+        return theme.getVotes().stream().mapToDouble(Vote::getValue).average().orElse(Double.NaN);
+    }
+
 }

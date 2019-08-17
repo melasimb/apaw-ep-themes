@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ApiTestConfig
 class ThemeResourceIT {
 
@@ -98,6 +100,14 @@ class ThemeResourceIT {
                 .body(BodyInserters.fromObject(new VoteDto(4)))
                 .exchange()
                 .expectStatus().isOk();
+        Double average = this.webTestClient
+                .get().uri(ThemeResource.THEMES + ThemeResource.ID_ID + ThemeResource.AVERAGE, themeId)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(AverageDto.class)
+                .returnResult().getResponseBody().getAverage();
+        assertEquals(3, average, 10e-5);
+
     }
 
 }
