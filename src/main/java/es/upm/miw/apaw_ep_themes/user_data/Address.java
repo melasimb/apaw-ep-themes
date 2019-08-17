@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_themes.user_resource;
+package es.upm.miw.apaw_ep_themes.user_data;
 
 public class Address {
 

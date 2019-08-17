@@ -1,6 +1,9 @@
 package es.upm.miw.apaw_ep_themes.user_resource;
 
 import es.upm.miw.apaw_ep_themes.exceptions.NotFoundException;
+import es.upm.miw.apaw_ep_themes.user_data.Address;
+import es.upm.miw.apaw_ep_themes.user_data.User;
+import es.upm.miw.apaw_ep_themes.user_data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

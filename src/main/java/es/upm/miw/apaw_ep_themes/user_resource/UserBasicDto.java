@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.user_resource;
 
 import es.upm.miw.apaw_ep_themes.exceptions.BadRequestException;
+import es.upm.miw.apaw_ep_themes.user_data.User;
 
 public class UserBasicDto {
 
