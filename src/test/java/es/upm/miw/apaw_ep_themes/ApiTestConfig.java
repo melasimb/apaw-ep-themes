@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api;
+package es.upm.miw.apaw_ep_themes;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;

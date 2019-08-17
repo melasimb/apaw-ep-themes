@@ -1,4 +1,4 @@
-package es.upm.miw.apaw_ep_api;
+package es.upm.miw.apaw_ep_themes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
