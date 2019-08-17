@@ -102,4 +102,34 @@ class UserResourceIT {
                 .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    void testUserUpdateUserPatchDtoException() {
+        String id = createUser("nick-4").getId();
+        this.webTestClient
+                .patch().uri(UserResource.USERS + UserResource.ID_ID, id)
+                .body(BodyInserters.fromObject(new UserPatchDto()))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    void testUserUpdateIdException() {
+        this.webTestClient
+                .patch().uri(UserResource.USERS + UserResource.ID_ID, "no")
+                .body(BodyInserters.fromObject(new UserPatchDto("email", "other")))
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void testUserUpdate() {
+        String id = createUser("nick-5").getId();
+        this.webTestClient
+                .patch().uri(UserResource.USERS + UserResource.ID_ID, id)
+                .body(BodyInserters.fromObject(new UserPatchDto("email", "other@gmail.com")))
+                .exchange()
+                .expectStatus().isOk();
+    }
+
+
 }
