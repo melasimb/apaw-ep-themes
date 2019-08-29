@@ -15,9 +15,10 @@
 * Travis-ci
 * Sonarcloud
 * Better Code Hub
-* Spring-boot
+* Spring-Boot
 * MongoDB
 * Heroku
+* OpenAPI
 
 ### Crear el proyecto
 1. Descomprimir la plantilla en una carpeta **apaw-ep-_nombre-apellido_**
