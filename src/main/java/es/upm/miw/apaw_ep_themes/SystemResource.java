@@ -11,7 +11,7 @@ public class SystemResource {
 
     public static final String SYSTEM = "/system";
     public static final String VERSION = "/version";
-    public static final String BADGE = "/badge";
+    public static final String VERSION_BADGE = "/version-badge";
 
     @Value("${application.name}")
     private String applicationName;
@@ -22,7 +22,7 @@ public class SystemResource {
     @Value("${build.timestamp}")
     private String buildTimestamp;
 
-    @GetMapping(value = BADGE, produces = {"image/svg+xml"})
+    @GetMapping(value = VERSION_BADGE, produces = {"image/svg+xml"})
     public byte[] generateBadge() { // http://localhost:8080/system/badge
         return new Badge().generateBadge("Heroku", "v" + buildVersion).getBytes();
     }

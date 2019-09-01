@@ -14,10 +14,10 @@ class SystemResourceIT {
     private WebTestClient webTestClient;
 
     @Test
-    void testReadBadge() {
+    void testReadVersionBadge() {
         String badge = new String(
                 this.webTestClient
-                        .get().uri(SystemResource.SYSTEM + SystemResource.BADGE)
+                        .get().uri(SystemResource.SYSTEM + SystemResource.VERSION_BADGE)
                         .exchange()
                         .expectStatus().isOk()
                         .expectBody(byte[].class)

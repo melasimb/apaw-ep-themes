@@ -5,8 +5,8 @@
 ### Estado del código
 [![Build Status](https://travis-ci.org/miw-upm/apaw-ep-themes.svg?branch=develop)](https://travis-ci.org/miw-upm/apaw-ep-themes)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-ep-themes&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-ep-themes)
-[![BCH compliance](https://bettercodehub.com/edge/badge/miw-upm/apaw-api-themes?branch=develop)](https://bettercodehub.com/)
-[![Heroku broken](https://apaw-ep-themes.herokuapp.com/system/badge)](https://apaw-ep-themes.herokuapp.com/swagger-ui.html)
+[![BCH compliance](https://bettercodehub.com/edge/badge/miw-upm/apaw-ep-themes?branch=develop)](https://bettercodehub.com/)
+[![Heroku broken](https://apaw-ep-themes.herokuapp.com/system/version-badge)](https://apaw-ep-themes.herokuapp.com/swagger-ui.html)
 
 ### Tecnologías necesarias
 * Java
