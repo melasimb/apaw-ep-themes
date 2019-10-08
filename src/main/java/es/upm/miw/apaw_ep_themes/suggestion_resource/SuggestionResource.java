@@ -1,6 +1,7 @@
 package es.upm.miw.apaw_ep_themes.suggestion_resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class SuggestionResource {
         this.suggestionBusinessController = suggestionBusinessController;
     }
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public SuggestionDto create(@RequestBody SuggestionDto suggestionDto) {
         suggestionDto.validate();
         return this.suggestionBusinessController.create(suggestionDto);

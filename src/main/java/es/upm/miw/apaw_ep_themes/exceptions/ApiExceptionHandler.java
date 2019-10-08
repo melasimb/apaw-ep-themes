@@ -48,6 +48,7 @@ public class ApiExceptionHandler {
     })
     @ResponseBody
     public ErrorMessage exception(HttpServletRequest request, Exception exception) {
+        exception.printStackTrace();
         return new ErrorMessage(exception, request.getRequestURI());
     }
 
